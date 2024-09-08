@@ -1,15 +1,8 @@
-import requests
-import json
-import zapi
-import methods
-import pandas as pd
+from bits_received import get_bits_received
+from bits_sent import get_bits_sent
 
 HOST_GROUP_NAME = "Network Devices"
-TIME_PERIOD = 2 * 3600 #seconds
 
-hosts = methods.get_hosts(HOST_GROUP_NAME)
 
-final_in_map = methods.get_final_df(hosts, "in")
-final_out_map = methods.get_final_df(hosts, "out")
-
-print(final_out_map)
+get_bits_received(HOST_GROUP_NAME)
+get_bits_sent(HOST_GROUP_NAME)

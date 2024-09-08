@@ -5,7 +5,7 @@ from datetime import datetime
 import requests
 import json
 
-HOST_GROUP_NAME = "Network Devices"
+# HOST_GROUP_NAME = "Network Devices"
 def get_group(HOST_GROUP_NAME):
     host_group_params = {
     'filter': {'name': [HOST_GROUP_NAME]},
@@ -99,7 +99,7 @@ def get_final_df(hosts, inout):
                 value_min = trend['value_min'].astype('float').min()/1000
                 value_max = trend['value_max'].astype('float').max()/1000
                 value_avg = trend['value_avg'].astype('float').mean()/1000
-                name = item.name
+                name = item.name.split(':')[0]
                 df.loc[len(df)]= (item.itemid, name, value_max, value_min, value_avg)
         host_final_map[i] = df
     return host_final_map
