@@ -1,9 +1,9 @@
 import requests
 import json
 
-ZABBIX_URL = 'http://10.100.100.7/api_jsonrpc.php'
-ZABBIX_USER = 'Bharathadmin'
-ZABBIX_PASSWORD = 'Bcs@123456#@#'
+ZABBIX_URL = ''
+ZABBIX_USER = ''
+ZABBIX_PASSWORD = ''
 
 auth_params = {
     'username': ZABBIX_USER,
