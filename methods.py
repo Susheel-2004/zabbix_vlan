@@ -5,7 +5,7 @@ from datetime import datetime
 import requests
 import json
 
-# HOST_GROUP_NAME = "Network Devices"
+
 def get_group(HOST_GROUP_NAME):
     host_group_params = {
     'filter': {'name': [HOST_GROUP_NAME]},
@@ -73,7 +73,7 @@ def get_trend(itemid):
     params = {
         "output": "extend",
         "itemids": itemid,
-        "time_from": int(datetime.now().timestamp()) - 3600*25,
+        "time_from": int(datetime.now().timestamp()) - 3600*169,
         "time_till": int(datetime.now().timestamp())
     }
     trend = zapi.zabbix_api("trend.get", params)
@@ -96,9 +96,9 @@ def get_final_df(hosts, inout):
         for item in host_item_map[i].itertuples():
             trend = get_trend(item.itemid)
             if 'value_min' in trend and 'value_max' in trend and 'value_avg' in trend: 
-                value_min = trend['value_min'].astype('float').min()/1000
-                value_max = trend['value_max'].astype('float').max()/1000
-                value_avg = trend['value_avg'].astype('float').mean()/1000
+                value_min = trend['value_min'].astype('float').min()/1000000
+                value_max = trend['value_max'].astype('float').max()/1000000
+                value_avg = trend['value_avg'].astype('float').mean()/1000000
                 name = item.name.split(':')[0]
                 df.loc[len(df)]= (item.itemid, name, value_max, value_min, value_avg)
         host_final_map[i] = df
