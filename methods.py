@@ -114,7 +114,7 @@ def get_final_df(hosts, inout):
 # print(get_trend(75796)['value_min'].astype('float').min())
 
 
-def get_topTalkers(HOST_GROUP_NAME):
+def get_topTalkers(HOST_GROUP_NAME, TOP_TALKER_TIME_PERIOD, TOP_N):
     hosts = get_hosts(HOST_GROUP_NAME)
     for i in list(hosts):
         if hosts[i] == None:
@@ -132,8 +132,8 @@ def get_topTalkers(HOST_GROUP_NAME):
     for df in dfs:
         for col in new_columns: df[col] = None
         for index, elem in df.iterrows():
-            trend_in = get_trend(elem.itemid_in, 25)
-            trend_out = get_trend(elem.itemid_out, 25)
+            trend_in = get_trend(elem.itemid_in, TOP_TALKER_TIME_PERIOD)
+            trend_out = get_trend(elem.itemid_out, TOP_TALKER_TIME_PERIOD)
             if 'value_min' in trend_in and 'value_max' in trend_in:
                 value_min = trend_in['value_min'].astype('float').min()/1000000
                 value_max = trend_in['value_max'].astype('float').max()/1000000
@@ -153,7 +153,7 @@ def get_topTalkers(HOST_GROUP_NAME):
         sorted_df[new_columns] = sorted_df[new_columns].round(4)
         sorted_df[new_columns] = sorted_df[new_columns].apply(lambda x: x.astype(str) + " Mb/s")
 
-        sorted_df.head(10).to_csv(f"{filename}.csv", index=False)
+        sorted_df.head(TOP_N).to_csv(f"{filename}.csv", index=False)
     
 
     
